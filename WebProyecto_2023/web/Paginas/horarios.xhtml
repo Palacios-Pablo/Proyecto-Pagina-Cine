@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Horarios</title>
+        <!-- Swiper -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"></link>
+        <!-- Estilos CSS -->
+        <link rel="stylesheet" href="../css/estilos.css"></link>
+        <!-- Iconos -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"></link>
+        <!-- JS -->
+        <script src="./archivos/main.js" type="text/javascript"></script>
+    </h:head>
+
+    <h:body>
+        <!-- Navbar -->
+        <header class="header2">
+            <a href="/WebProyecto_2023/index.xhtml" class="logo">
+                <i class='bx bxs-movie'></i>CineMax
+            </a>
+            <div class="bx bx-menu" id="menu-icon"></div>
+            <!-- Menu -->
+            <ul class="navbar">
+                <li><a href="/WebProyecto_2023/index.xhtml">Inicio</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/clasificacion.xhtml">Clasificación</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/clientes.xhtml">Clientes</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/entradas.xhtml">Entradas</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/empleados.xhtml">Empleados</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/generos.xhtml">Géneros</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/horarios.xhtml" class="home-active">Horarios</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/peliculas.xhtml">Películas</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/salas.xhtml">Salas</a></li>
+                <li><a href="#" class="btn">Salir</a></li>
+            </ul>
+        </header>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <div class="contenedor">
+            <h1 class="titulo">Horarios</h1>
+            
+            <h:form id="formHorarios">
+                <p:growl id="growl" life="2000" showDetail="true"/>
+                <p:panel header="HORARIOS" footer="">
+                    <!-- Formulario para ingresar y editar horarios -->
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel value="Fecha de Inicio:"/>
+                        <p:calendar id="fechaInicio" value="#{beanHorario.fechaInicio}" required="true"/>
+                        <p:message for="fechaInicio" />
+
+                        <h:outputLabel value="Sala:"/>
+                        <p:selectOneMenu id="sala" value="#{beanHorario.idSala}" required="true">
+                            <f:selectItems value="#{beanHorario.listaSala}" var="sala" itemValue="#{sala.value}" itemLabel="#{sala.label}" />
+                        </p:selectOneMenu>
+                        <p:message for="sala" />
+
+                        <p:commandButton value="Insertar" action="#{beanHorario.insertar()}" update="formHorarios:growl, formHorarios:dataTable" process="@this, fechaInicio, sala"/>
+                    </h:panelGrid>
+                    
+                    <p:dataTable id="dataTable" value="#{beanHorario.listaHorario}" var="horario" emptyMessage="No hay horarios registrados">
+                        <p:column headerText="ID">
+                            <h:outputText value="#{horario.idHorario}"/>
+                        </p:column>
+                        <p:column headerText="Fecha de Inicio">
+                            <h:outputText value="#{horario.fechaHoraInicio}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Sala">
+                            <h:outputText value="#{horario.sala}"/>
+                        </p:column>
+
+                        <p:column style="width:80px;">
+                            <p:commandButton title="Editar" update="formHorarios:dataTable" icon="pi pi-pencil" action="#{beanHorario.modificar()}">
+                                <f:setPropertyActionListener target="#{beanHorario.idHorario}" value="#{horario.idHorario}" />
+                            </p:commandButton>
+                        </p:column>
+
+                        <p:column style="width:80px;">
+                            <p:commandButton title="Eliminar" update="formHorarios:dataTable" icon="pi pi-trash" action="#{beanHorario.seleccionarDatos(horario)}">
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+        </div>
+    </h:body>
+</html>

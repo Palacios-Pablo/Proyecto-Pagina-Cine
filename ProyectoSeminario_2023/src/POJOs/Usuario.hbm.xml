@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/10/2023 10:41:17 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="POJOs.Usuario" table="usuario" catalog="proyecto_seminario" optimistic-lock="version">
+        <id name="idUsuario" type="java.lang.Integer">
+            <column name="ID_USUARIO" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="perfil" class="POJOs.Perfil" fetch="select">
+            <column name="ID_PERFIL" />
+        </many-to-one>
+        <property name="estado" type="boolean">
+            <column name="ESTADO" not-null="true" />
+        </property>
+        <property name="nombreUsuario" type="string">
+            <column name="NOMBRE_USUARIO" length="50" />
+        </property>
+        <property name="contrasena" type="string">
+            <column name="CONTRASENA" />
+        </property>
+        <set name="comprasForUsuarioModifica" table="compra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_MODIFICA" />
+            </key>
+            <one-to-many class="POJOs.Compra" />
+        </set>
+        <set name="comprasForUsuarioIngresa" table="compra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_INGRESA" />
+            </key>
+            <one-to-many class="POJOs.Compra" />
+        </set>
+        <set name="empleadosForUsuarioIngresa" table="empleado" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_INGRESA" />
+            </key>
+            <one-to-many class="POJOs.Empleado" />
+        </set>
+        <set name="empleadosForUsuarioModifica" table="empleado" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_MODIFICA" />
+            </key>
+            <one-to-many class="POJOs.Empleado" />
+        </set>
+        <set name="generosForUsuarioIngresa" table="genero" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_INGRESA" />
+            </key>
+            <one-to-many class="POJOs.Genero" />
+        </set>
+        <set name="horariosForUsuarioModifica" table="horario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_MODIFICA" />
+            </key>
+            <one-to-many class="POJOs.Horario" />
+        </set>
+        <set name="clientesForUsuarioIngresa" table="cliente" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_INGRESA" />
+            </key>
+            <one-to-many class="POJOs.Cliente" />
+        </set>
+        <set name="horariosForUsuarioIngresa" table="horario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_INGRESA" />
+            </key>
+            <one-to-many class="POJOs.Horario" />
+        </set>
+        <set name="boletosForUsuarioIngresa" table="boleto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_INGRESA" />
+            </key>
+            <one-to-many class="POJOs.Boleto" />
+        </set>
+        <set name="clientesForUsuarioModifica" table="cliente" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_MODIFICA" />
+            </key>
+            <one-to-many class="POJOs.Cliente" />
+        </set>
+        <set name="generosForUsuarioModifica" table="genero" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_MODIFICA" />
+            </key>
+            <one-to-many class="POJOs.Genero" />
+        </set>
+        <set name="boletosForUsuarioModifica" table="boleto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_MODIFICA" />
+            </key>
+            <one-to-many class="POJOs.Boleto" />
+        </set>
+        <set name="clasificacionsForUsuarioIngresa" table="clasificacion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_INGRESA" />
+            </key>
+            <one-to-many class="POJOs.Clasificacion" />
+        </set>
+        <set name="peliculasForUsuarioModifica" table="pelicula" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_MODIFICA" />
+            </key>
+            <one-to-many class="POJOs.Pelicula" />
+        </set>
+        <set name="peliculasForUsuarioIngresa" table="pelicula" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_INGRESA" />
+            </key>
+            <one-to-many class="POJOs.Pelicula" />
+        </set>
+        <set name="clasificacionsForUsuarioModifica" table="clasificacion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_MODIFICA" />
+            </key>
+            <one-to-many class="POJOs.Clasificacion" />
+        </set>
+        <set name="categoriasForUsuarioModifica" table="categoria" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_MODIFICA" />
+            </key>
+            <one-to-many class="POJOs.Categoria" />
+        </set>
+        <set name="categoriasForUsuarioIngresa" table="categoria" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_INGRESA" />
+            </key>
+            <one-to-many class="POJOs.Categoria" />
+        </set>
+        <set name="salasForUsuarioIngresa" table="sala" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_INGRESA" />
+            </key>
+            <one-to-many class="POJOs.Sala" />
+        </set>
+        <set name="salasForUsuarioModifica" table="sala" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_MODIFICA" />
+            </key>
+            <one-to-many class="POJOs.Sala" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/10/2023 10:41:17 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="POJOs.Sala" table="sala" catalog="proyecto_seminario" optimistic-lock="version">
+        <id name="idSala" type="java.lang.Integer">
+            <column name="ID_SALA" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="usuarioByUsuarioIngresa" class="POJOs.Usuario" fetch="select">
+            <column name="USUARIO_INGRESA" />
+        </many-to-one>
+        <many-to-one name="usuarioByUsuarioModifica" class="POJOs.Usuario" fetch="select">
+            <column name="USUARIO_MODIFICA" />
+        </many-to-one>
+        <property name="estado" type="boolean">
+            <column name="ESTADO" not-null="true" />
+        </property>
+        <property name="nombreSala" type="string">
+            <column name="NOMBRE_SALA" length="50" />
+        </property>
+        <property name="capacidad" type="java.lang.Integer">
+            <column name="CAPACIDAD" />
+        </property>
+        <property name="tipoSala" type="string">
+            <column name="TIPO_SALA" length="20" />
+        </property>
+        <property name="fechaIngresa" type="timestamp">
+            <column name="FECHA_INGRESA" length="19" />
+        </property>
+        <property name="fechaModifica" type="timestamp">
+            <column name="FECHA_MODIFICA" length="19" />
+        </property>
+        <set name="boletos" table="boleto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_SALA" />
+            </key>
+            <one-to-many class="POJOs.Boleto" />
+        </set>
+        <set name="horarios" table="horario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="SALA_PROYECCION" />
+            </key>
+            <one-to-many class="POJOs.Horario" />
+        </set>
+    </class>
+</hibernate-mapping>

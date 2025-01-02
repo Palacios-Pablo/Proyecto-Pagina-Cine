@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/10/2023 10:41:17 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="POJOs.Boleto" table="boleto" catalog="proyecto_seminario" optimistic-lock="version">
+        <id name="idBoleto" type="java.lang.Integer">
+            <column name="ID_BOLETO" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="compra" class="POJOs.Compra" fetch="select">
+            <column name="ID_COMPRA" />
+        </many-to-one>
+        <many-to-one name="horario" class="POJOs.Horario" fetch="select">
+            <column name="ID_HORARIO" />
+        </many-to-one>
+        <many-to-one name="sala" class="POJOs.Sala" fetch="select">
+            <column name="ID_SALA" />
+        </many-to-one>
+        <many-to-one name="usuarioByUsuarioIngresa" class="POJOs.Usuario" fetch="select">
+            <column name="USUARIO_INGRESA" />
+        </many-to-one>
+        <many-to-one name="usuarioByUsuarioModifica" class="POJOs.Usuario" fetch="select">
+            <column name="USUARIO_MODIFICA" />
+        </many-to-one>
+        <property name="estado" type="boolean">
+            <column name="ESTADO" not-null="true" />
+        </property>
+        <property name="numeroAsiento" type="java.lang.Integer">
+            <column name="NUMERO_ASIENTO" />
+        </property>
+        <property name="fechaIngresa" type="timestamp">
+            <column name="FECHA_INGRESA" length="19" />
+        </property>
+        <property name="fechaModifica" type="timestamp">
+            <column name="FECHA_MODIFICA" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Géneros</title>
+         <!-- Swiper -->
+         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"></link>
+         <!-- Estilos CSS -->
+        <link rel="stylesheet" href="../css/estilos.css"></link>
+        <!-- Iconos -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"></link>
+        <!-- JS -->
+        <script src="./archivos/main.js" type="text/javascript"></script>
+    </h:head>
+
+    <h:body>
+        <!-- Navbar -->
+        <header class="header2">
+            <a href="/WebProyecto_2023/index.xhtml" class="logo">
+                <i class='bx bxs-movie'></i>CineMax
+            </a>
+            <div class="bx bx-menu" id="menu-icon"></div>
+            <!-- Menu -->
+            <ul class="navbar">
+                <li><a href="/WebProyecto_2023/index.xhtml">Inicio</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/clasificacion.xhtml">Clasificación</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/clientes.xhtml">Clientes</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/entradas.xhtml">Entradas</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/empleados.xhtml">Empleados</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/generos.xhtml" class="home-active">Géneros</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/horarios.xhtml">Horarios</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/peliculas.xhtml">Películas</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/salas.xhtml">Salas</a></li>
+                <li><a href="#" class="btn">Salir</a></li>
+            </ul>
+        </header>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <div class="contenedor">
+            <h1 class="titulo">GÉNEROS</h1>
+
+            <h:form id="formGenero">
+                <p:growl id="growl" life="2000" showDetail="true"/>
+                <p:panel header="Géneros" footer="">
+                    <h5>Género</h5>
+                    <p:inputText id="genero" class="input"  value="#{beanGenero.genero}" />
+
+                    <br></br>
+                    <br></br>
+                    <div class="botones">
+                        <p:commandButton value="Guardar" styleClass="rounded-button" 
+                                         update="@form, tablas" action="#{beanGenero.insertar()}" />
+                        <p:commandButton value="Modificar" styleClass="rounded-button ui-button-success" 
+                                         update="@form, tablas" action="#{beanGenero.modificar()}" />
+                    </div>
+                </p:panel>
+            </h:form>
+
+            <h:form id="tablas">
+                <div class="card">
+                    <p:dataTable var="gen " value="#{beanGenero.listaGenero}" paginator="true" rows="10" 
+                                 rowsPerPageTemplate="5,10,15">
+                        <p:column headerText="Género">
+                            <h:outputText value="#{gen.genero}" />
+                        </p:column>
+
+                        <p:column headerText="Modificar">
+                            <p:commandButton value="Modificar" update="@form,tablas" styleClass="rounded ui-button-success" 
+                                             action="#{beanGenero.modificar()}" />
+                        </p:column>
+
+                        <p:column headerText="Anular">
+                            <p:commandButton value="Anular" update="@form,tablas" styleClass="rounded ui-button-danger" 
+                                             action="#{beanGenero.seleccionarDatos(gen)}" />
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </h:form>
+        </div>
+    </h:body>
+</html>

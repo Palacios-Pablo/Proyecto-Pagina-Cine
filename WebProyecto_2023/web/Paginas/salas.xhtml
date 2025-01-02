@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Salas</title>
+        <!-- Estilos CSS -->
+        <link rel="stylesheet" href="../css/estilos.css" />
+        <!-- Iconos -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+        <!-- Swiper -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+        <!-- JS -->
+        <script src="./archivos/main.js" type="text/javascript"></script>
+    </h:head>
+
+    <h:body>
+        <!-- Navbar -->
+        <header class="header2">
+            <a href="/WebProyecto_2023/index.xhtml" class="logo">
+                <i class='bx bxs-movie'></i>CineMax
+            </a>
+            <div class="bx bx-menu" id="menu-icon"></div>
+            <!-- Menu -->
+            <ul class="navbar">
+                <li><a href="/WebProyecto_2023/index.xhtml">Inicio</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/clasificacion.xhtml">Clasificación</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/clientes.xhtml">Clientes</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/entradas.xhtml">Entradas</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/empleados.xhtml">Empleados</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/generos.xhtml">Géneros</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/horarios.xhtml">Horarios</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/peliculas.xhtml">Películas</a></li>
+                <li><a href="/WebProyecto_2023/Paginas/salas.xhtml" class="home-active">Salas</a></li>
+                <li><a href="#" class="btn">Salir</a></li>
+            </ul>
+        </header>
+
+        <div class="contenedor">
+            <h1 class="titulo">SALAS</h1>
+
+            <!-- Ejemplo de tabla para mostrar la lista de salas -->
+            <p:dataTable id="tablaSalas" var="sala" value="#{beanSala.listaSala}">
+                <p:column headerText="Nombre Sala">
+                    <h:outputText value="#{sala.nombreSala}" />
+                </p:column>
+                <p:column headerText="Capacidad">
+                    <h:outputText value="#{sala.capacidad}" />
+                </p:column>
+                <p:column headerText="Tipo Sala">
+                    <h:outputText value="#{sala.tipoSala}" />
+                </p:column>
+                <p:column headerText="Editar">
+                    <p:commandButton value="Editar" action="#{beanSala.selecionarDatosM(sala)}" oncomplete="PF('editDialog').show()" />
+                </p:column>
+                <p:column headerText="Eliminar">
+                    <p:commandButton value="Eliminar" action="#{beanSala.seleccionarDatos(sala)}" update="tablaSalas"/>
+                </p:column>
+            </p:dataTable>
+
+            <!-- Formulario para inserción de sala -->
+            <h:form>
+                <p:panel header="Ingresar Sala">
+                    <p:inputText value="#{beanSala.nombreSala}" placeholder="Nombre de la Sala" />
+                    <p:inputText value="#{beanSala.capacidad}" placeholder="Capacidad" />
+                    <p:inputText value="#{beanSala.tipoSala}" placeholder="Tipo de Sala" />
+                    <p:commandButton value="Insertar" action="#{beanSala.insertar}" update="tablaSalas" />
+                </p:panel>
+            </h:form>
+        </div>
+
+        <!-- Diálogo de Edición -->
+        <p:dialog header="Editar Sala" widgetVar="editDialog" modal="true" resizable="false">
+            <h:form>
+                <p:outputLabel for="nombreSalaEdit" value="Nombre Sala" />
+                <p:inputText id="nombreSalaEdit" value="#{beanSala.nombreSala}" />
+                <p:outputLabel for="capacidadEdit" value="Capacidad" />
+                <p:inputText id="capacidadEdit" value="#{beanSala.capacidad}" />
+                <p:outputLabel for="tipoSalaEdit" value="Tipo Sala" />
+                <p:inputText id="tipoSalaEdit" value="#{beanSala.tipoSala}" />
+                <p:commandButton value="Guardar" action="#{beanSala.modificar}" update="tablaSalas" oncomplete="PF('editDialog').hide()" />
+            </h:form>
+        </p:dialog>
+
+
+
+    </h:body>
+</html>

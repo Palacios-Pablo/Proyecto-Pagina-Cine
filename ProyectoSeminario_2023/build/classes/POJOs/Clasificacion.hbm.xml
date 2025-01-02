@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/10/2023 10:41:17 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="POJOs.Clasificacion" table="clasificacion" catalog="proyecto_seminario" optimistic-lock="version">
+        <id name="idClasificacion" type="java.lang.Integer">
+            <column name="ID_CLASIFICACION" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="usuarioByUsuarioIngresa" class="POJOs.Usuario" fetch="select">
+            <column name="USUARIO_INGRESA" />
+        </many-to-one>
+        <many-to-one name="usuarioByUsuarioModifica" class="POJOs.Usuario" fetch="select">
+            <column name="USUARIO_MODIFICA" />
+        </many-to-one>
+        <property name="clasificacion" type="string">
+            <column name="CLASIFICACION" length="35" />
+        </property>
+        <property name="fechaIngresa" type="timestamp">
+            <column name="FECHA_INGRESA" length="19" />
+        </property>
+        <property name="fechaModifica" type="timestamp">
+            <column name="FECHA_MODIFICA" length="19" />
+        </property>
+        <set name="peliculas" table="pelicula" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_CLASIFICACION" />
+            </key>
+            <one-to-many class="POJOs.Pelicula" />
+        </set>
+    </class>
+</hibernate-mapping>
